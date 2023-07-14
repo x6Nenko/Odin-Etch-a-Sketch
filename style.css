@@ -26,6 +26,7 @@ body {
 }
 
 .square3333 {
+    color: rgb(red, rgb(0, 255, 0), blue);
     background-color: #000;
     border: 1px solid black;
 }

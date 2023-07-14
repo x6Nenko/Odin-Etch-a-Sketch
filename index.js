@@ -3,18 +3,33 @@ const rangeBtn = document.getElementById('range');
 
 let rangeValue = 0;
 let gridSystem = 16 * 16;
+let isMouseDown = false;
+
+document.addEventListener("mousedown", function() {
+    isMouseDown = true;
+    console.log(isMouseDown);
+});
+
+document.addEventListener("mouseup", function() {
+    isMouseDown = false;
+    console.log(isMouseDown);
+});
 
 function addHoverEffect() {
     const allSquares = document.querySelectorAll('.square');
     allSquares.forEach(square => {
-        square.onmouseover = function() {
+        square.onmousedown = function() {
             square.style.backgroundColor = "#000";
-        }
+        };
+        square.onmouseover = function() {
+            if (isMouseDown) {
+                square.style.backgroundColor = "#000";
+            }
+        };
     });
 }
 
 function createGridBoard() {
-    const allSquares = document.querySelectorAll('.square');
     gridContainer.style.gridTemplateColumns = `repeat(${rangeValue}, 1fr)`;
     gridContainer.style.gridTemplateRows = `repeat(${rangeValue}, 1fr)`;
     for (let i = 0; i < gridSystem; i++) {
@@ -39,6 +54,6 @@ rangeBtn.addEventListener('change', function(value) {
     gridSystem = value.target.value * value.target.value;
     console.log(gridSystem);
 
-    // clearGridBoard();
+    clearGridBoard();
     createGridBoard();
 });

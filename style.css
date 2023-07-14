@@ -22,7 +22,7 @@ body {
 }
 
 .grid-container div {
-    
+    user-select: none;
 }
 
 .square3333 {

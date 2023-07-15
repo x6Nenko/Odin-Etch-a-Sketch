@@ -3,12 +3,23 @@ const rangeBtn = document.getElementById('range');
 const rainbowBtn = document.getElementById('rainbowBtn');
 const darkeningBtn = document.getElementById('darkeningBtn');
 const defaultBtn = document.getElementById('defaultBtn');
+const brighteningBtn = document.getElementById('brighteningBtn');
+const colorPicker = document.getElementById('colorPicker');
 
 let rangeValue = 0;
 let gridSystem = 16 * 16;
 let isMouseDown = false;
-let currentColor = "";
+let defaultColor = "#4F4F4F";
+let currentRandomColor = "";
 let hoverMode = "default";
+
+colorPicker.addEventListener("change", function() {
+    defaultColor = colorPicker.value;
+});
+
+brighteningBtn.addEventListener("click", function() {
+    hoverMode = "brightening";
+});
 
 rainbowBtn.addEventListener("click", function() {
     hoverMode = "rainbow";
@@ -39,7 +50,7 @@ function addRandomColor() {
     let green = randomizer();
     let blue = randomizer();
 
-    return currentColor = `rgb(${red}, ${green}, ${blue})`;
+    return currentRandomColor = `rgb(${red}, ${green}, ${blue})`;
 };
 
 function addHoverEffect() {
@@ -47,12 +58,12 @@ function addHoverEffect() {
     allSquares.forEach(square => {
         square.onmousedown = function() {
             if (hoverMode === "default") {
-                square.style.backgroundColor = "#000";
+                square.style.backgroundColor = defaultColor;
             }
 
             if (hoverMode === "rainbow") {
                 addRandomColor();
-                square.style.backgroundColor = currentColor;
+                square.style.backgroundColor = currentRandomColor;
             }
 
             if (hoverMode === "darkening") {
@@ -65,16 +76,27 @@ function addHoverEffect() {
 
                 square.style.filter = `brightness(${currentShade -= .1})`;
             }
+
+            if (hoverMode === "brightening") {
+                const currentFilterValue = window.getComputedStyle(square, null).getPropertyValue("filter");
+                let currentShade = parseFloat(currentFilterValue.replace("brightness(", "").replace(")", ""));
+
+                if (currentFilterValue === "none") {
+                    square.style.filter = `brightness(1.1)`;
+                }
+
+                square.style.filter = `brightness(${currentShade += .1})`;
+            }
         };
         square.onmouseover = function() {
             if (isMouseDown) {
                 if (hoverMode === "default") {
-                    square.style.backgroundColor = "#000";
+                    square.style.backgroundColor = defaultColor;
                 }
     
                 if (hoverMode === "rainbow") {
                     addRandomColor();
-                    square.style.backgroundColor = currentColor;
+                    square.style.backgroundColor = currentRandomColor;
                 }
     
                 if (hoverMode === "darkening") {
@@ -86,6 +108,17 @@ function addHoverEffect() {
                     }
     
                     square.style.filter = `brightness(${currentShade -= .1})`;
+                }
+
+                if (hoverMode === "brightening") {
+                    const currentFilterValue = window.getComputedStyle(square, null).getPropertyValue("filter");
+                    let currentShade = parseFloat(currentFilterValue.replace("brightness(", "").replace(")", ""));
+    
+                    if (currentFilterValue === "none") {
+                        square.style.filter = `brightness(1.1)`;
+                    }
+    
+                    square.style.filter = `brightness(${currentShade += .1})`;
                 }
             }
         };

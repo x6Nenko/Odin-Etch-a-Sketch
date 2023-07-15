@@ -6,13 +6,21 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="input-container">
-        <input type="range" value="16" min="1" max="100" id="range" name="range">
-        <label for="range">16 x 16</label>
+    <div class="sidebar">
+        <div class="input-container">
+            <input type="range" value="16" min="1" max="100" id="range" name="range">
+            <label for="range">16 x 16</label>
+        </div>
+
+        <div class="input-container">
+            <input type="color" id="colorPicker"value="#4F4F4F">
+            <label for="colorPicker">Choose color for a default mode</label>
+        </div>
 
         <button id="defaultBtn">Default mode</button>
         <button id="rainbowBtn">Rainbow mode</button>
         <button id="darkeningBtn">Darkening mode</button>
+        <button id="brighteningBtn">Brightening mode</button>
     </div>
 
     <div class="grid-container">

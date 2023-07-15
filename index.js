@@ -110,6 +110,7 @@ function addHoverEffect() {
 
             if (hoverMode === "eraser") {
                 square.style.backgroundColor = "";
+                square.style.filter = `brightness(1)`;
             };
         };
         
@@ -148,6 +149,7 @@ function addHoverEffect() {
 
                 if (hoverMode === "eraser") {
                     square.style.backgroundColor = "";
+                    square.style.filter = `brightness(1)`;
                 };
             };
         };

@@ -4,17 +4,31 @@ const rainbowBtn = document.getElementById('rainbowBtn');
 const darkeningBtn = document.getElementById('darkeningBtn');
 const defaultBtn = document.getElementById('defaultBtn');
 const brighteningBtn = document.getElementById('brighteningBtn');
-const colorPicker = document.getElementById('colorPicker');
+const defaultColorPicker = document.getElementById('defaultColorPicker');
+const canvasColorPicker = document.getElementById('canvasColorPicker');
+const squareElements = document.querySelectorAll('.square');
+const eraserBtn = document.getElementById('eraserBtn');
+const style = document.querySelector('style');
 
 let rangeValue = 0;
 let gridSystem = 16 * 16;
 let isMouseDown = false;
 let defaultColor = "#4F4F4F";
+let canvasColor = "#f5f5f5"
 let currentRandomColor = "";
 let hoverMode = "default";
 
-colorPicker.addEventListener("change", function() {
-    defaultColor = colorPicker.value;
+eraserBtn.addEventListener("click", function() {
+    hoverMode = "eraser";
+});
+
+canvasColorPicker.addEventListener("change", function() {
+    canvasColor = canvasColorPicker.value;
+    style.innerHTML = `.square { background-color: ${canvasColor}; }`;
+});
+
+defaultColorPicker.addEventListener("change", function() {
+    defaultColor = defaultColorPicker.value;
 });
 
 brighteningBtn.addEventListener("click", function() {
@@ -59,12 +73,12 @@ function addHoverEffect() {
         square.onmousedown = function() {
             if (hoverMode === "default") {
                 square.style.backgroundColor = defaultColor;
-            }
+            };
 
             if (hoverMode === "rainbow") {
                 addRandomColor();
                 square.style.backgroundColor = currentRandomColor;
-            }
+            };
 
             if (hoverMode === "darkening") {
                 const currentFilterValue = window.getComputedStyle(square, null).getPropertyValue("filter");
@@ -72,10 +86,10 @@ function addHoverEffect() {
 
                 if (currentFilterValue === "none") {
                     square.style.filter = `brightness(.9)`;
-                }
+                };
 
                 square.style.filter = `brightness(${currentShade -= .1})`;
-            }
+            };
 
             if (hoverMode === "brightening") {
                 const currentFilterValue = window.getComputedStyle(square, null).getPropertyValue("filter");
@@ -83,21 +97,25 @@ function addHoverEffect() {
 
                 if (currentFilterValue === "none") {
                     square.style.filter = `brightness(1.1)`;
-                }
+                };
 
                 square.style.filter = `brightness(${currentShade += .1})`;
-            }
+            };
+
+            if (hoverMode === "eraser") {
+                square.style.backgroundColor = "";
+            };
         };
         square.onmouseover = function() {
             if (isMouseDown) {
                 if (hoverMode === "default") {
                     square.style.backgroundColor = defaultColor;
-                }
+                };
     
                 if (hoverMode === "rainbow") {
                     addRandomColor();
                     square.style.backgroundColor = currentRandomColor;
-                }
+                };
     
                 if (hoverMode === "darkening") {
                     const currentFilterValue = window.getComputedStyle(square, null).getPropertyValue("filter");
@@ -105,10 +123,10 @@ function addHoverEffect() {
     
                     if (currentFilterValue === "none") {
                         square.style.filter = `brightness(.9)`;
-                    }
+                    };
     
                     square.style.filter = `brightness(${currentShade -= .1})`;
-                }
+                };
 
                 if (hoverMode === "brightening") {
                     const currentFilterValue = window.getComputedStyle(square, null).getPropertyValue("filter");
@@ -116,11 +134,15 @@ function addHoverEffect() {
     
                     if (currentFilterValue === "none") {
                         square.style.filter = `brightness(1.1)`;
-                    }
+                    };
     
                     square.style.filter = `brightness(${currentShade += .1})`;
-                }
-            }
+                };
+
+                if (hoverMode === "eraser") {
+                    square.style.backgroundColor = "";
+                };
+            };
         };
     });
 }

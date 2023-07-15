@@ -1,19 +1,33 @@
 const gridContainer = document.querySelector('.grid-container');
 const rangeBtn = document.getElementById('range');
+const rainbowBtn = document.getElementById('rainbowBtn');
+const darkeningBtn = document.getElementById('darkeningBtn');
+const defaultBtn = document.getElementById('defaultBtn');
 
 let rangeValue = 0;
 let gridSystem = 16 * 16;
 let isMouseDown = false;
 let currentColor = "";
+let hoverMode = "default";
+
+rainbowBtn.addEventListener("click", function() {
+    hoverMode = "rainbow";
+});
+
+darkeningBtn.addEventListener("click", function() {
+    hoverMode = "darkening";
+});
+
+defaultBtn.addEventListener("click", function() {
+    hoverMode = "default";
+});
 
 document.addEventListener("mousedown", function() {
     isMouseDown = true;
-    console.log(isMouseDown);
 });
 
 document.addEventListener("mouseup", function() {
     isMouseDown = false;
-    console.log(isMouseDown);
 });
 
 function randomizer() {
@@ -28,31 +42,51 @@ function addRandomColor() {
     return currentColor = `rgb(${red}, ${green}, ${blue})`;
 };
 
-// function addHoverEffect() {
-//     const allSquares = document.querySelectorAll('.square');
-//     allSquares.forEach(square => {
-//         square.onmousedown = function() {
-//             square.style.backgroundColor = "#000";
-//         };
-//         square.onmouseover = function() {
-//             if (isMouseDown) {
-//                 square.style.backgroundColor = "#000";
-//             }
-//         };
-//     });
-// }
-
 function addHoverEffect() {
     const allSquares = document.querySelectorAll('.square');
     allSquares.forEach(square => {
         square.onmousedown = function() {
-            addRandomColor();
-            square.style.backgroundColor = currentColor;
+            if (hoverMode === "default") {
+                square.style.backgroundColor = "#000";
+            }
+
+            if (hoverMode === "rainbow") {
+                addRandomColor();
+                square.style.backgroundColor = currentColor;
+            }
+
+            if (hoverMode === "darkening") {
+                const currentFilterValue = window.getComputedStyle(square, null).getPropertyValue("filter");
+                let currentShade = parseFloat(currentFilterValue.replace("brightness(", "").replace(")", ""));
+
+                if (currentFilterValue === "none") {
+                    square.style.filter = `brightness(.9)`;
+                }
+
+                square.style.filter = `brightness(${currentShade -= .1})`;
+            }
         };
         square.onmouseover = function() {
             if (isMouseDown) {
-                addRandomColor();
-                square.style.backgroundColor = currentColor;
+                if (hoverMode === "default") {
+                    square.style.backgroundColor = "#000";
+                }
+    
+                if (hoverMode === "rainbow") {
+                    addRandomColor();
+                    square.style.backgroundColor = currentColor;
+                }
+    
+                if (hoverMode === "darkening") {
+                    const currentFilterValue = window.getComputedStyle(square, null).getPropertyValue("filter");
+                    let currentShade = parseFloat(currentFilterValue.replace("brightness(", "").replace(")", ""));
+    
+                    if (currentFilterValue === "none") {
+                        square.style.filter = `brightness(.9)`;
+                    }
+    
+                    square.style.filter = `brightness(${currentShade -= .1})`;
+                }
             }
         };
     });
@@ -69,8 +103,6 @@ function createGridBoard() {
 }
 
 createGridBoard();
-
-addHoverEffect();
 
 function clearGridBoard() {
     const allSquares = document.querySelectorAll('.square');

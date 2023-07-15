@@ -25,14 +25,18 @@ body {
     user-select: none;
 }
 
-.square3333 {
-    color: rgb(red, rgb(0, 255, 0), blue);
-    background-color: #000;
-    border: 1px solid black;
+.square {
+    background-color: grey;
+    /* border: 1px solid black; */
 }
 
 .test {
     background-color: bisque;
     width: 100px;
     height: 100px;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
 }

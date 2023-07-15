@@ -8,6 +8,7 @@ const defaultColorPicker = document.getElementById('defaultColorPicker');
 const canvasColorPicker = document.getElementById('canvasColorPicker');
 const squareElements = document.querySelectorAll('.square');
 const eraserBtn = document.getElementById('eraserBtn');
+const clearBtn = document.getElementById('clearBtn');
 const style = document.querySelector('style');
 
 let rangeValue = 0;
@@ -17,6 +18,11 @@ let defaultColor = "#4F4F4F";
 let canvasColor = "#f5f5f5"
 let currentRandomColor = "";
 let hoverMode = "default";
+
+clearBtn.addEventListener("click", function() {
+    clearGridBoard();
+    createGridBoard();
+});
 
 eraserBtn.addEventListener("click", function() {
     hoverMode = "eraser";
@@ -106,6 +112,7 @@ function addHoverEffect() {
                 square.style.backgroundColor = "";
             };
         };
+        
         square.onmouseover = function() {
             if (isMouseDown) {
                 if (hoverMode === "default") {
@@ -165,10 +172,8 @@ function clearGridBoard() {
 }
 
 rangeBtn.addEventListener('change', function(value) {
-    console.log("triggered", value.target.value);
     rangeValue = value.target.value;
     gridSystem = value.target.value * value.target.value;
-    console.log(gridSystem);
 
     clearGridBoard();
     createGridBoard();

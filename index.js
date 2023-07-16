@@ -6,9 +6,9 @@ const defaultBtn = document.getElementById('defaultBtn');
 const brighteningBtn = document.getElementById('brighteningBtn');
 const defaultColorPicker = document.getElementById('defaultColorPicker');
 const canvasColorPicker = document.getElementById('canvasColorPicker');
-const squareElements = document.querySelectorAll('.square');
 const eraserBtn = document.getElementById('eraserBtn');
 const clearBtn = document.getElementById('clearBtn');
+const toggleGridLinesBtn = document.getElementById('toggleGridLinesBtn');
 const style = document.querySelector('style');
 
 let rangeValue = 0;
@@ -18,6 +18,15 @@ let defaultColor = "#4F4F4F";
 let canvasColor = "#f5f5f5"
 let currentRandomColor = "";
 let hoverMode = "default";
+let isToggledGridLines = false;
+
+toggleGridLinesBtn.addEventListener('change', function() {
+    const squareElements = document.querySelectorAll('.square');
+    isToggledGridLines = !isToggledGridLines;
+    squareElements.forEach(square => {
+        square.classList.toggle('grid-lines');
+    });
+});
 
 clearBtn.addEventListener("click", function() {
     clearGridBoard();
@@ -159,10 +168,20 @@ function addHoverEffect() {
 function createGridBoard() {
     gridContainer.style.gridTemplateColumns = `repeat(${rangeValue}, 1fr)`;
     gridContainer.style.gridTemplateRows = `repeat(${rangeValue}, 1fr)`;
-    for (let i = 0; i < gridSystem; i++) {
-        const square = document.createElement('div');
-        gridContainer.appendChild(square).classList.add("square");
+
+    if (isToggledGridLines) {
+        for (let i = 0; i < gridSystem; i++) {
+            const square = document.createElement('div');
+            gridContainer.appendChild(square).classList.add("square");
+            gridContainer.appendChild(square).classList.add("grid-lines");
+        }
+    } else {
+        for (let i = 0; i < gridSystem; i++) {
+            const square = document.createElement('div');
+            gridContainer.appendChild(square).classList.add("square");
+        }
     }
+
     addHoverEffect();
 }
 

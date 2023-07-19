@@ -10,6 +10,7 @@ const eraserBtn = document.getElementById('eraserBtn');
 const clearBtn = document.getElementById('clearBtn');
 const toggleGridLinesBtn = document.getElementById('toggleGridLinesBtn');
 const style = document.querySelector('style');
+const gridValue = document.getElementById('gridValue');
 
 let rangeValue = 0;
 let gridSystem = 16 * 16;
@@ -213,6 +214,7 @@ function clearGridBoard() {
 rangeBtn.addEventListener('change', function(value) {
     rangeValue = value.target.value;
     gridSystem = value.target.value * value.target.value;
+    gridValue.innerText = `${rangeValue} x ${rangeValue}`;
 
     clearGridBoard();
     createGridBoard();

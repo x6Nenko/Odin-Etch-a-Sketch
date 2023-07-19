@@ -241,6 +241,10 @@ input[type="color"] {
 }
 
 footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     text-align: center;
     margin-bottom: 20px;
     color: #7D7D7D;

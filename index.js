@@ -20,6 +20,14 @@ let currentRandomColor = "";
 let hoverMode = "default";
 let isToggledGridLines = false;
 
+function disableActiveButtons() {
+    eraserBtn.classList.remove('active');
+    defaultBtn.classList.remove('active');
+    rainbowBtn.classList.remove('active');
+    darkeningBtn.classList.remove('active');
+    brighteningBtn.classList.remove('active');
+};
+
 toggleGridLinesBtn.addEventListener('change', function() {
     const squareElements = document.querySelectorAll('.square');
     isToggledGridLines = !isToggledGridLines;
@@ -35,6 +43,8 @@ clearBtn.addEventListener("click", function() {
 
 eraserBtn.addEventListener("click", function() {
     hoverMode = "eraser";
+    disableActiveButtons();
+    eraserBtn.classList.add('active');
 });
 
 canvasColorPicker.addEventListener("change", function() {
@@ -48,18 +58,26 @@ defaultColorPicker.addEventListener("change", function() {
 
 brighteningBtn.addEventListener("click", function() {
     hoverMode = "brightening";
+    disableActiveButtons();
+    brighteningBtn.classList.add('active');
 });
 
 rainbowBtn.addEventListener("click", function() {
     hoverMode = "rainbow";
+    disableActiveButtons();
+    rainbowBtn.classList.add('active');
 });
 
 darkeningBtn.addEventListener("click", function() {
     hoverMode = "darkening";
+    disableActiveButtons();
+    darkeningBtn.classList.add('active');
 });
 
 defaultBtn.addEventListener("click", function() {
     hoverMode = "default";
+    disableActiveButtons();
+    defaultBtn.classList.add('active');
 });
 
 document.addEventListener("mousedown", function() {

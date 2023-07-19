@@ -3,41 +3,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etch a Sketch</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style></style>
 </head>
 <body>
-    <div class="sidebar">
-        <div class="input-container">
-            <input type="range" value="16" min="1" max="100" id="range" name="range">
-            <label for="range">Grid size: 16 x 16</label>
+
+    <aside class="sidebar">
+        <header>
+            <h1 class="heading">Etch a Sketch</h1>
+        </header>
+
+        <div class="pen-settings">
+            <div class="btn-container">
+                <button id="defaultBtn" class="active">Default Pen</button>
+                <input type="color" id="defaultColorPicker" value="#4F4F4F">
+            </div>
+            <button id="rainbowBtn">Rainbow Pen</button>
+            <button id="darkeningBtn">Darkening Pen</button>
+            <button id="brighteningBtn">Brightening Pen</button>
+            <button id="eraserBtn">Eraser</button>
+            <button id="clearBtn">Clear</button>
         </div>
 
-        <div class="input-container">
-            <input type="color" id="defaultColorPicker" value="#4F4F4F">
-            <label for="defaultColorPicker">Pick color for a default mode</label>
-        </div>
+        <div class="grid-settings">
+            <div class="input-container range-container">
+                <input type="range" value="16" min="1" max="100" id="range" name="range">
+                <label for="range">Grid size: 16 x 16</label>
+            </div>
 
-        <div class="input-container">
-            <input type="color" id="canvasColorPicker" value="#f5f5f5">
-            <label for="canvasColorPicker">Pick color for a bg of canvas</label>
+            <div class="line-container">
+                <div class="input-container bg-picker-container">
+                    <input type="color" id="canvasColorPicker" value="#f5f5f5">
+                    <label for="canvasColorPicker">Background</label>
+                </div>
+    
+                <label for="toggleGridLinesBtn" class="input-container checkbox-container">
+                    <input type="checkbox" id="toggleGridLinesBtn" name="toggleGridLinesBtn">
+                    <span class="checkmark"></span>
+                    <label for="toggleGridLinesBtn">Toggle Lines</label>
+                </label> 
+            </div>
         </div>
-
-        <button id="defaultBtn">Default mode</button>
-        <button id="rainbowBtn">Rainbow mode</button>
-        <button id="darkeningBtn">Darkening mode</button>
-        <button id="brighteningBtn">Brightening mode</button>
-        <button id="eraserBtn">Eraser</button>
-        <button id="clearBtn">Clear</button>
-        <div class="input-container">
-            <input type="checkbox" id="toggleGridLinesBtn" name="toggleGridLinesBtn">
-            <label for="toggleGridLinesBtn">Toggle Grid Lines</label>
-        </div>
-    </div>
-
-    <div class="grid-container">
         
-    </div>
+        <footer>Made by Maximilian NDev.</footer>
+    </aside>
+
+    <main>
+        <div class="grid-container"></div>
+    </main>
 
     <script src="index.js"></script>
 </body>
